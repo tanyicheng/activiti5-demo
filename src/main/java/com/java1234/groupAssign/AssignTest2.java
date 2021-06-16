@@ -13,7 +13,7 @@ import org.activiti.engine.task.Task;
 import org.junit.Test;
 /**
  * course-20 使用流程变量设置 Candidate groups
- * fixme-1 完成任务时设置审批人？
+ *
  * @author created by barrett in 2021/4/3 10:12
  **/
 public class AssignTest2 {
@@ -74,11 +74,15 @@ public class AssignTest2 {
 	
 	/**
 	 * 完成任务
+	 * 指定签核人
 	 */
 	@Test
 	public void completeTask(){
+		String taskId= "32505";
 		processEngine.getTaskService() // 任务相关Service
-			.complete("257505");
+		.setAssignee(taskId,"王五");
+
+		processEngine.getTaskService().complete("257505");
 	}
 	
 
