@@ -153,8 +153,8 @@ public class StudentLeaveProcess {
     }
 
     /**
-     * 查询任务的变量
-     * @author created by barrett in 2021/6/16 23:05
+     * 查询任务的变量，在送签时定义变量
+     * @author created by barrett in 2021/6/16 23:06
      **/
     @Test
     public void getTaskVariable() {
@@ -175,10 +175,10 @@ public class StudentLeaveProcess {
         List<HistoricTaskInstance> list = processEngine.getHistoryService() // 历史相关Service
                 .createHistoricTaskInstanceQuery() // 创建历史任务实例查询
 //                .processInstanceId("10001") // 用流程实例id查询
-                .taskId("27504")
+//                .taskId("27504")
 //                .finished() // 查询已经完成的任务
 //                .unfinished()
-//                .processDefinitionId()
+                .processDefinitionId("studentLevaeProcess:2:7504")
                 .list();
         for (HistoricTaskInstance hti : list) {
             System.out.println("任务ID:" + hti.getId());
