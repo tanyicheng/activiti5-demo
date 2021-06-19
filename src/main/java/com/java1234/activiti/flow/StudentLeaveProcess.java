@@ -174,14 +174,16 @@ public class StudentLeaveProcess {
     public void historyTaskList() {
         List<HistoricTaskInstance> list = processEngine.getHistoryService() // 历史相关Service
                 .createHistoricTaskInstanceQuery() // 创建历史任务实例查询
-//                .processInstanceId("10001") // 用流程实例id查询
+                .processInstanceId("10001") // 用流程实例id查询
 //                .taskId("27504")
 //                .finished() // 查询已经完成的任务
 //                .unfinished()
-                .processDefinitionId("studentLevaeProcess:2:7504")
+//                .processDefinitionId("studentLevaeProcess:2:7504")
+                .includeTaskLocalVariables()
                 .list();
         for (HistoricTaskInstance hti : list) {
             System.out.println("任务ID:" + hti.getId());
+            System.out.println("任务key:" + hti.getTaskDefinitionKey());
             System.out.println("流程实例ID:" + hti.getProcessInstanceId());
             System.out.println("流程定义ID:" + hti.getProcessDefinitionId());
             System.out.println("任务名称：" + hti.getName());
@@ -191,12 +193,15 @@ public class StudentLeaveProcess {
             Map<String, Object> processVariables = hti.getProcessVariables();
             Map<String, Object> taskLocalVariables = hti.getTaskLocalVariables();
             String reason = (String) taskLocalVariables.get("reason");
-            if (reason != null)
+            if (reason != null) {
                 System.out.println("理由：" + reason+"<<<<<<<<<<<<<<<<<<<<");
+            }
 
             System.out.println("------------------------");
         }
     }
+
+
 
     /**
      * 历史活动查询
@@ -243,6 +248,13 @@ public class StudentLeaveProcess {
             System.out.println(hpi.getBusinessKey());
             System.out.println("---------------------------");
         }
+    }
+
+    @Test
+    public void test(){
+        ProcessInstance pi = processEngine.getRuntimeService().createProcessInstanceQuery()
+                .processDefinitionId("studentLevaeProcess:2:7504").singleResult();
+        System.out.println(pi.getId());
 
     }
 
