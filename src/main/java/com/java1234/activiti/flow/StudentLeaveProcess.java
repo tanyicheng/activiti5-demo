@@ -1,6 +1,8 @@
 package com.java1234.activiti.flow;
 
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import org.activiti.engine.history.HistoricVariableInstanceQuery;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
@@ -258,5 +261,33 @@ public class StudentLeaveProcess {
 
     }
 
+    /**
+     * 查看最新版本的流程定义
+     */
+    @Test
+    public void listLastProcDef() {
+
+        List<ProcessDefinition> listAll=processEngine.getRepositoryService() // 获取service
+                .createProcessDefinitionQuery() // 创建流程定义查询
+//                .latestVersion()//todo 直接使用这个即可
+                .orderByProcessDefinitionVersion().asc() // 根据流程定义版本升序
+                .list();  // 返回一个集合
+
+        // 定义有序Map，相同的Key，假如添加map的值  后者的值会覆盖前面相同的key的值
+        Map<String,ProcessDefinition> map=new LinkedHashMap<String,ProcessDefinition>();
+        // 遍历集合，根据key来覆盖前面的值，来保证最新的key覆盖前面所有老的key的值
+        for(ProcessDefinition pd:listAll){
+            map.put(pd.getKey(), pd);
+        }
+
+        List<ProcessDefinition> pdList=new LinkedList<ProcessDefinition>(map.values());
+        for(ProcessDefinition pd:pdList){
+            System.out.println("ID_"+pd.getId());
+            System.out.println("NAME_"+pd.getName());
+            System.out.println("KEY_"+pd.getKey());
+            System.out.println("VERSION_"+pd.getVersion());
+            System.out.println("=========");
+        }
+    }
 
 }
