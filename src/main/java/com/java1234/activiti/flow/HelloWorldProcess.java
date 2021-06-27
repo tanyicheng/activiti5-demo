@@ -9,68 +9,68 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 /**
- * course-2 ÔËĞĞÁ÷³ÌÊµÀı
+ * course-2 è¿è¡Œæµç¨‹å®ä¾‹
  * @author Barrett
  *
  */
 public class HelloWorldProcess {
 
 	/**
-	 * »ñÈ¡Ä¬ÈÏÁ÷³ÌÒıÇæÊµÀı£¬»á×Ô¶¯¶ÁÈ¡activiti.cfg.xmlÎÄ¼ş
+	 * è·å–é»˜è®¤æµç¨‹å¼•æ“å®ä¾‹ï¼Œä¼šè‡ªåŠ¨è¯»å–activiti.cfg.xmlæ–‡ä»¶
 	 */
 	private ProcessEngine processEngine=ProcessEngines.getDefaultProcessEngine();
 	
 	/**
-	 * 	1¡¢²¿ÊğÁ÷³Ì¶¨Òå
+	 * 	1ã€éƒ¨ç½²æµç¨‹å®šä¹‰
 	 */
 	@Test
 	public void deploy(){
-		Deployment deployment=processEngine.getRepositoryService() // »ñÈ¡²¿ÊğÏà¹ØService
-				.createDeployment() // ´´½¨²¿Êğ
-				.addClasspathResource("diagrams/HelloWorld.bpmn") // ¼ÓÔØ×ÊÔ´ÎÄ¼ş
-				.addClasspathResource("diagrams/HelloWorld.png") // ¼ÓÔØ×ÊÔ´ÎÄ¼ş
-				.name("HelloWorldÁ÷³Ì") // Á÷³ÌÃû³Æ
-				.deploy(); // ²¿Êğ
-		System.out.println("Á÷³Ì²¿ÊğID:"+deployment.getId()); 
-		System.out.println("Á÷³Ì²¿ÊğName:"+deployment.getName());
+		Deployment deployment=processEngine.getRepositoryService() // è·å–éƒ¨ç½²ç›¸å…³Service
+				.createDeployment() // åˆ›å»ºéƒ¨ç½²
+				.addClasspathResource("diagrams/HelloWorld.bpmn") // åŠ è½½èµ„æºæ–‡ä»¶
+				.addClasspathResource("diagrams/HelloWorld.png") // åŠ è½½èµ„æºæ–‡ä»¶
+				.name("HelloWorldæµç¨‹") // æµç¨‹åç§°
+				.deploy(); // éƒ¨ç½²
+		System.out.println("æµç¨‹éƒ¨ç½²ID:"+deployment.getId()); 
+		System.out.println("æµç¨‹éƒ¨ç½²Name:"+deployment.getName());
 	}
 	
 	/**
-	 * 	2¡¢Æô¶¯Á÷³ÌÊµÀı
+	 * 	2ã€å¯åŠ¨æµç¨‹å®ä¾‹
 	 */
 	@Test
 	public void start(){
-		ProcessInstance pi=processEngine.getRuntimeService() // ÔËĞĞÊ±Service
-			.startProcessInstanceByKey("myFirstProcess"); // Á÷³Ì¶¨Òå±íµÄKEY×Ö¶ÎÖµ
-		System.out.println("Á÷³ÌÊµÀıID:"+pi.getId());
-		System.out.println("Á÷³Ì¶¨ÒåID:"+pi.getProcessDefinitionId()); 
+		ProcessInstance pi=processEngine.getRuntimeService() // è¿è¡Œæ—¶Service
+			.startProcessInstanceByKey("myFirstProcess"); // æµç¨‹å®šä¹‰è¡¨çš„KEYå­—æ®µå€¼
+		System.out.println("æµç¨‹å®ä¾‹ID:"+pi.getId());
+		System.out.println("æµç¨‹å®šä¹‰ID:"+pi.getProcessDefinitionId()); 
 	}
 	
 	/**
-	 * 	3¡¢²é¿´ÈÎÎñ
+	 * 	3ã€æŸ¥çœ‹ä»»åŠ¡
 	 */
 	@Test
 	public void findTask(){
-		List<Task> taskList=processEngine.getTaskService() // ÈÎÎñÏà¹ØService
-			.createTaskQuery() // ´´½¨ÈÎÎñ²éÑ¯
-			.taskAssignee("java1234_Ğ¡·æ") // Ö¸¶¨Ä³¸öÈË
+		List<Task> taskList=processEngine.getTaskService() // ä»»åŠ¡ç›¸å…³Service
+			.createTaskQuery() // åˆ›å»ºä»»åŠ¡æŸ¥è¯¢
+			.taskAssignee("java1234_å°é”‹") // æŒ‡å®šæŸä¸ªäºº
 			.list();
 		for(Task task:taskList){
-			System.out.println("ÈÎÎñID:"+task.getId()); 
-			System.out.println("ÈÎÎñÃû³Æ:"+task.getName());
-			System.out.println("ÈÎÎñ´´½¨Ê±¼ä:"+task.getCreateTime());
-			System.out.println("ÈÎÎñÎ¯ÅÉÈË:"+task.getAssignee());
-			System.out.println("Á÷³ÌÊµÀıID:"+task.getProcessInstanceId());
+			System.out.println("ä»»åŠ¡ID:"+task.getId()); 
+			System.out.println("ä»»åŠ¡åç§°:"+task.getName());
+			System.out.println("ä»»åŠ¡åˆ›å»ºæ—¶é—´:"+task.getCreateTime());
+			System.out.println("ä»»åŠ¡å§”æ´¾äºº:"+task.getAssignee());
+			System.out.println("æµç¨‹å®ä¾‹ID:"+task.getProcessInstanceId());
 		}
 	}
 	
 	/**
-	 * 	4¡¢Íê³ÉÈÎÎñ
+	 * 	4ã€å®Œæˆä»»åŠ¡
 	 */
 	@Test
 	public void completeTask(){
-		processEngine.getTaskService() // ÈÎÎñÏà¹ØService
-			.complete("2504");//ÈÎÎñµÄID
+		processEngine.getTaskService() // ä»»åŠ¡ç›¸å…³Service
+			.complete("2504");//ä»»åŠ¡çš„ID
 	}
 	
 	

@@ -116,7 +116,7 @@ public class VariableTest3 {
 	@Test
 	public void getVariableValues(){
 		RuntimeService runtimeService=processEngine.getRuntimeService(); // »ŒŒÒService
-		String executionId="102501";
+		String executionId="35001";
 		Integer days=(Integer) runtimeService.getVariable(executionId, "days");
 		Date date=(Date) runtimeService.getVariable(executionId, "date");
 		String reason=(String) runtimeService.getVariable(executionId, "reason");

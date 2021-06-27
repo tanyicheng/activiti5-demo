@@ -3,9 +3,9 @@
   <process id="studentLevaeProcess7" name="Stududent Leave Process7" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="usertask1" name="请假审批">
+    <userTask id="usertask1" name="请假审批" activiti:assignee="张三">
       <extensionElements>
-        <activiti:taskListener event="create" class="com.java1234.taskassign.MyTaskListener"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${businessleaveTaskListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
